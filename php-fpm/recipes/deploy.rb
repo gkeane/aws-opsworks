@@ -37,5 +37,10 @@ node[:deploy].each do |application, deploy|
     application deploy
   #  cookbook deploy.has_key?("application_alias") ? deploy[:application_alias] : application
   end
+  
+  execute 'trigger php-fpm service restart' do
+      command '/bin/true'
+      notifies :restart, "service[php-fpm]"
+  end
  
 end
